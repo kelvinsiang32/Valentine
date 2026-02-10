@@ -6,6 +6,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.startBox {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  padding: 30px 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+}
+
+.startBox h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.startBox button {
+  margin-top: 20px;
+  padding: 12px 26px;
+  font-size: 1rem;
+  border-radius: 25px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
   .center {
   position: fixed;
   inset: 0;
@@ -144,6 +178,13 @@ button {
 
 <body>
 
+<div id="startScreen">
+  <div class="startBox">
+    <h1>For Minx 💖</h1>
+    <p>Tap to begin our story</p>
+    <button onclick="startExperience()">Start the Love 💕</button>
+  </div>
+</div>
 <!-- COLLAGE -->
 <div class="collage">
   <div style="background-image:url('photo1.jpeg')"></div>
@@ -186,6 +227,21 @@ document.body.addEventListener("click", () => {
   document.getElementById("music").play();
 }, { once: true });
 
+
+/* Start Experience */
+  function startExperience() {
+  const audio = document.getElementById("bgm");
+  audio.volume = 0.6;
+  audio.play();
+
+  const start = document.getElementById("startScreen");
+  start.style.opacity = "0";
+  start.style.pointerEvents = "none";
+
+  setTimeout(() => {
+    start.remove();
+  }, 800);
+}
 /* SPARKLES */
 function sparkle() {
   const s = document.createElement("div");
