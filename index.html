@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>For Minx 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -142,6 +143,21 @@ body {
 .name {
   font-size: 1.9rem;
   animation: pulse 1.8s infinite;
+}
+.promise-text {
+  margin-top: 15px;
+  font-size: 1.3rem;
+  font-family: 'Dancing Script', 'Great Vibes', cursive;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(255,77,109,0.6);
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 @keyframes pulse {
@@ -291,7 +307,7 @@ function showFinal() {
   document.getElementById("cardContent").innerHTML = `
     <h1 id="typing"></h1>
 
-    <p style="margin-top:15px;font-size:1.1rem;">
+     <p class="promise-text">
       Thank you for choosing me.<br>
       I promise to love you,<br>
       laugh with you,<br>
