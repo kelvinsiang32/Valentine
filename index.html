@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: 
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("https://images.unsplash.com/photo-1517841905240-472988babdf9") no-repeat center center / cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 30px 25px;
+      border-radius: 18px;
+      width: 90%;
+      max-width: 360px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      padding: 12px 26px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+      margin-right: 10px;
+    }
+
+    #noBtn {
+      background: #999;
+      color: black;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Minx, will you be my Valentine? 💖</h1>
+
+    <div class="buttons">
+      <button id="yesBtn" onclick="yesClick()">Yes! 💕</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+
+    function moveButton() {
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 80 - 40;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function yesClick() {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          background:#000;
+          color:white;
+          font-size:1.8rem;
+          text-align:center;
+        ">
+          💘 Yay!! I love you, Minx 💘<br><br>
+          Happy Valentine’s Day 🌹
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>
