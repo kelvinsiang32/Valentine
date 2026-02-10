@@ -86,7 +86,9 @@ body {
 }
 
 /* ==== CARD ==== */
-.card {
+.card {<div class="card" id="card">
+  <div id="cardContent">
+      
   backdrop-filter: blur(14px);
   background: rgba(255,255,255,0.18);
   border-radius: 24px;
@@ -160,19 +162,21 @@ button {
 
 <div class="overlay"></div>
 
-<audio id="music" loop>
+<audio id="bgm" loop>
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <div class="center">
   <div class="card" id="card">
-  <div class="photo"></div>
-  <div class="name">Minx 💖</div>
-  <p>Will you be my Valentine?</p>
+    <div id="cardContent">
+    <div class="photo"></div>
+    <div class="name">Minx 💖</div>
+    <p>Will you be my Valentine?</p>
 
-  <div class="buttons">
+    <div class="buttons">
     <button id="yesBtn">Yes! 💕</button>
     <button id="noBtn">No</button>
+      </div>
   </div>
 </div>
 
@@ -227,30 +231,19 @@ document.getElementById("yesBtn").onclick = () => {
 };
 
 function showFinal() {
-  document.querySelector(".center").innerHTML = `
-    <div style="
-      height:100vh;
-      width:100vw;
-      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      text-align:center;
-      padding:20px;
-    ">
-      <h1 id="typing"></h1>
-      <p style="margin-top:15px;font-size:1.1rem;">
-        Thank you for choosing me.<br>
-        I promise to love you,<br>
-        laugh with you,<br>
-        and choose you every single day ❤️
-      </p>
-      <p style="margin-top:25px;font-size:0.9rem;opacity:0.85;">
-        Save this page forever 💖
-      </p>
-    </div>
+  document.getElementById("cardContent").innerHTML = `
+    <h1 id="typing"></h1>
+
+    <p style="margin-top:15px;font-size:1.1rem;">
+      Thank you for choosing me.<br>
+      I promise to love you,<br>
+      laugh with you,<br>
+      and choose you every single day ❤️
+    </p>
+
+    <p style="margin-top:25px;font-size:0.9rem;opacity:0.85;">
+      Save this page forever 💖
+    </p>
   `;
 
   typeText("I Love You, Minx 💘");
@@ -277,6 +270,21 @@ function typeText(text) {
 
   startTyping();
 }
+  const bgm = document.getElementById("bgm");
+
+// Try autoplay on load
+window.addEventListener("load", () => {
+  bgm.play().catch(() => {
+    console.log("Autoplay blocked, waiting for user interaction");
+  });
+});
+
+// Fallback: play on ANY user click
+document.addEventListener("click", () => {
+  if (bgm.paused) {
+    bgm.play();
+  }
+}, { once: true });
 </script>
 
 </body>
