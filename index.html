@@ -256,7 +256,8 @@ function showFinal() {
   typeText("I Love You, Minx 💘");
 }
 
-  function typeText(text) {
+/* TYPING EFFECT */
+function typeText(text) {
   const el = document.getElementById("typing");
   let i = 0;
 
@@ -275,18 +276,6 @@ function showFinal() {
   }
 
   startTyping();
-}
-}
-
-/* TYPING EFFECT */
-function typeText(text) {
-  const el = document.getElementById("typing");
-  let i = 0;
-  const interval = setInterval(() => {
-    el.textContent += text[i];
-    i++;
-    if (i === text.length) clearInterval(interval);
-  }, 120);
 }
 </script>
 
