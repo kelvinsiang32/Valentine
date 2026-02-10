@@ -6,6 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+  .center {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
 body {
   margin: 0;
   height: 100vh;
@@ -156,7 +164,8 @@ button {
   <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<div class="card" id="card">
+<div class="center">
+  <div class="card" id="card">
   <div class="photo"></div>
   <div class="name">Minx 💖</div>
   <p>Will you be my Valentine?</p>
@@ -218,33 +227,52 @@ document.getElementById("yesBtn").onclick = () => {
 };
 
 function showFinal() {
-  document.body.innerHTML = `
-  <div style="
-    height:100vh;
-    width:100vw;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    text-align:center;
-    padding:20px;
-  ">
-    <h1 id="typing"></h1>
-    <p style="margin-top:15px;font-size:1.1rem;">
-      Thank you for choosing me.<br>
-      I promise to love you,<br>
-      laugh with you,<br>
-      and choose you every single day ❤️
-    </p>
-    <p style="margin-top:25px;font-size:0.9rem;opacity:0.85;">
-      Save this page forever 💖
-    </p>
-  </div>
+  document.querySelector(".center").innerHTML = `
+    <div style="
+      height:100vh;
+      width:100vw;
+      background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      text-align:center;
+      padding:20px;
+    ">
+      <h1 id="typing"></h1>
+      <p style="margin-top:15px;font-size:1.1rem;">
+        Thank you for choosing me.<br>
+        I promise to love you,<br>
+        laugh with you,<br>
+        and choose you every single day ❤️
+      </p>
+      <p style="margin-top:25px;font-size:0.9rem;opacity:0.85;">
+        Save this page forever 💖
+      </p>
+    </div>
   `;
 
-  typeText("I Love You, Minx 💘");
+  function typeText(text) {
+  const el = document.getElementById("typing");
+  let i = 0;
+
+  function startTyping() {
+    el.textContent = "";
+    i = 0;
+
+    const interval = setInterval(() => {
+      el.textContent += text[i];
+      i++;
+      if (i === text.length) {
+        clearInterval(interval);
+        setTimeout(startTyping, 2000); // wait 2s then repeat
+      }
+    }, 120);
+  }
+
+  startTyping();
+}
 }
 
 /* TYPING EFFECT */
