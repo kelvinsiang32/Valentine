@@ -1,106 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Valentine 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<title>For Minx 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      background: 
-        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
-        url("valentine.jpeg") no-repeat center center / cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      text-align: center;
-    }
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .card {
-      background: rgba(0, 0, 0, 0.55);
-      padding: 30px 25px;
-      border-radius: 18px;
-      width: 90%;
-      max-width: 360px;
-    }
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    animation: floatUp linear infinite;
+  }
 
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 25px;
+  @keyframes floatUp {
+    from {
+      transform: translateY(0);
+      opacity: 1;
     }
+    to {
+      transform: translateY(-120vh);
+      opacity: 0;
+    }
+  }
 
-    .buttons {
-      position: relative;
-      height: 120px;
-    }
+  .card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    color: white;
+  }
 
-    button {
-      padding: 12px 26px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-    }
+  .photo {
+    background: url("valentine.jpeg") no-repeat center center;
+    background-size: contain;
+    height: 220px;
+    margin-bottom: 20px;
+  }
 
-    #yesBtn {
-      background: #ff4d6d;
-      color: white;
-      margin-right: 10px;
-    }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
 
-    #noBtn {
-      background: #999;
-      color: black;
-      position: absolute;
-    }
-  </style>
+  .buttons {
+    position: relative;
+    height: 120px;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  #yesBtn {
+    background: #ff4d6d;
+    color: white;
+    z-index: 2;
+  }
+
+  #noBtn {
+    background: #ddd;
+    position: absolute;
+  }
+
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>Minx, will you be my Valentine? 💖</h1>
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/audio/2023/03/27/audio_91c4c57d7c.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="buttons">
-      <button id="yesBtn" onclick="yesClick()">Yes! 💕</button>
-      <button id="noBtn">No</button>
-    </div>
+<div class="card" id="mainCard">
+  <div class="photo"></div>
+  <h1>Minx, will you be my Valentine? 💖</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes! 💕</button>
+    <button id="noBtn">No</button>
   </div>
+</div>
 
-  <script>
-    const noBtn = document.getElementById("noBtn");
+<script>
+  // Background music (start on interaction)
+  document.body.addEventListener("click", () => {
+    document.getElementById("bgMusic").play();
+  }, { once: true });
 
-    noBtn.addEventListener("mouseenter", moveButton);
-    noBtn.addEventListener("touchstart", moveButton);
+  // Floating hearts
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 15 + 15 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }
+  setInterval(createHeart, 400);
 
-    function moveButton() {
-      const x = Math.random() * 200 - 100;
-      const y = Math.random() * 80 - 40;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
+  // No button behavior
+  const noBtn = document.getElementById("noBtn");
+  let scale = 1;
 
-    function yesClick() {
-      document.body.innerHTML = `
-        <div style="
-          height:100vh;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          background:#000;
-          color:white;
-          font-size:1.8rem;
-          text-align:center;
-        ">
-          💘 Yay!! I love you, Minx 💘<br><br>
-          Happy Valentine’s Day 🌹
+  function dodge() {
+    scale -= 0.1;
+    if (scale < 0.4) scale = 0.4;
+
+    const x = Math.random() * 220 - 110;
+    const y = Math.random() * 80 - 40;
+
+    noBtn.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+  }
+
+  noBtn.addEventListener("mouseenter", dodge);
+  noBtn.addEventListener("touchstart", dodge);
+
+  // Yes button click
+  document.getElementById("yesBtn").onclick = () => {
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        width:100vw;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:linear-gradient(135deg, #ff9a9e, #fad0c4);
+        text-align:center;
+        color:white;
+        padding:20px;
+      ">
+        <div>
+          <h1 style="font-size:2rem;">💘 Yay!! 💘</h1>
+          <p style="font-size:1.2rem;">
+            Minx, thank you for choosing me.<br><br>
+            I promise to love you, laugh with you,<br>
+            and choose you every single day ❤️
+          </p>
         </div>
-      `;
-    }
-  </script>
+      </div>
+    `;
+  };
+</script>
 
 </body>
 </html>
